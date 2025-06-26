@@ -1,7 +1,7 @@
 import { Switch, Text, View } from 'react-native'
 import { colorScheme } from 'nativewind'
 
-import { useThemeStore } from 'stores/theme'
+import { useThemeStore } from '@/stores/theme.store'
 
 export default function ThemeSwitcher() {
   const { toggleTheme, theme } = useThemeStore()

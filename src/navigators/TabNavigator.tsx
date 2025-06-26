@@ -4,16 +4,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 
-import { useThemeColor } from '@/theme/hooks'
-import ChatsScreen from '@/screens/ChatsScreen'
-import ProfileScreen from '@/screens/ProfileScreen'
+import Profile from '@/screens/Profile'
+import ChatsList from '@/screens/ChatsList'
+import { useThemeColors } from '@/theme/hooks'
 
 const Tab = createBottomTabNavigator()
 
-const TabNavigator = () => {
-  const { activeIcon, inactiveIcon, background } = useThemeColor()
+export default function TabNavigator() {
+  const { background, icon, primary } = useThemeColors()
 
-  const getIconColor = (focused: boolean) => (focused ? activeIcon : inactiveIcon)
+  const getIconColor = (focused: boolean) => (focused ? primary : icon)
 
   return (
     <Tab.Navigator
@@ -31,7 +31,7 @@ const TabNavigator = () => {
       }}>
       <Tab.Screen
         name="Chats"
-        component={ChatsScreen}
+        component={ChatsList}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons name="chatbubble-sharp" size={20} color={getIconColor(focused)} />
@@ -40,7 +40,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={Profile}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <FontAwesome name="user-circle" size={24} color={getIconColor(focused)} />
@@ -50,5 +50,3 @@ const TabNavigator = () => {
     </Tab.Navigator>
   )
 }
-
-export default TabNavigator

@@ -1,4 +1,4 @@
-import { Conversation } from './chat'
+import { Conversation } from './conversation'
 
 export type RootStackParamList = {
   Home: undefined

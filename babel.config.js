@@ -23,14 +23,11 @@ module.exports = function (api) {
         extensions: ['.js', '.jsx', '.tsx', 'ts', '.ios.js', '.android.js'],
       },
     ],
-
     ['@babel/plugin-transform-private-methods', { loose: true }],
-    // 'nativewind/babel',
   ]
 
   return {
     presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel'],
-
     plugins,
   }
 }

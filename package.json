@@ -1,6 +1,7 @@
 {
-  "name": "my-expo-app",
+  "name": "chat-demo",
   "version": "1.0.0",
+  "author": "Shoaib",
   "scripts": {
     "start": "expo start",
     "ios": "expo run:ios",

@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import * as Notifications from 'expo-notifications'
 import { RouteProp, useRoute } from '@react-navigation/native'
 
-import { useChatStore } from '@/stores/chat'
-import { Conversation } from '@/types/chat'
+import { useChatStore } from '@/stores/chat.store'
+import { Conversation } from '@/types/conversation'
 
-export const useFakeNotifications = () => {
+export const useSimulateMessage = () => {
   const { simulateIncoming } = useChatStore()
 
   const route = useRoute<RouteProp<{ params: { item: Conversation } }, 'params'>>()

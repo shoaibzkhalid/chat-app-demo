@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
+import { useState } from 'react'
 import { Pressable } from 'react-native'
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
+
 import { Ionicons } from '@expo/vector-icons'
-import { Conversation } from 'types/chat'
+import { Conversation } from '@/types/conversation'
 
 type FavoriteButtonProps = {
   toggleFavorite: (id: string) => void
   item: Conversation
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ toggleFavorite, item }) => {
+export default function FavoriteButton({ toggleFavorite, item }: FavoriteButtonProps) {
   const scale = useSharedValue(1)
   const [added, setAdded] = useState(false)
 
@@ -40,5 +41,3 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ toggleFavorite, item })
     </Pressable>
   )
 }
-
-export default FavoriteButton

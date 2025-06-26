@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Text } from 'react-native'
 
 type ChatBubbleProps = {
@@ -6,16 +5,12 @@ type ChatBubbleProps = {
   isMe: boolean
 }
 
-const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isMe = false }) => {
+export default function ChatBubble({ message, isMe = false }: ChatBubbleProps) {
   return (
-    <View className={`mb-2 flex-row ${isMe ? 'justify-end' : 'justify-start'}`}>
-      <View
-        className={`max-w-[100%] rounded-2xl px-4 py-2
+    <View
+      className={`${isMe ? 'justify-end' : 'justify-start'} max-w-[84%] rounded-2xl px-4 py-2
           ${isMe ? 'rounded-br-sm bg-[--color-brand]' : 'rounded-bl-sm bg-gray-200'}`}>
-        <Text className={`text-lg ${isMe ? 'text-white' : 'text-gray-900'}`}>{message}</Text>
-      </View>
+      <Text className={`text-lg ${isMe ? 'text-white' : 'text-gray-900'}`}>{message}</Text>
     </View>
   )
 }
-
-export default ChatBubble
