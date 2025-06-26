@@ -1,5 +1,5 @@
-import { Platform, Pressable, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { Platform, Pressable, Text, View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -33,13 +33,15 @@ export default function RootNavigator() {
           return {
             title: route.params.item.name,
             headerTitle: () => {
+              const isOnline = route.params.item.isOnline
               return (
                 <View className="align-center ">
                   <Text className="text-center text-[--color-primary]">
                     {route.params.item.name}
                   </Text>
-                  <Text className="text-center text-[--color-brand]">
-                    {route.params.item.isOnline ? 'Online' : 'Offline'}
+                  <Text
+                    className={`text-center text-sm text-[${isOnline ? '--color-brand' : '--color-primary'}]`}>
+                    {isOnline ? 'Online' : 'Offline'}
                   </Text>
                 </View>
               )

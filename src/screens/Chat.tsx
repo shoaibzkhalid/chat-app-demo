@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import Animated, { SlideInRight } from 'react-native-reanimated'
+import Animated, { ZoomInLeft, ZoomInRight } from 'react-native-reanimated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import {
   ActivityIndicator,
@@ -26,7 +26,7 @@ export default function Chat() {
   const loading = useChatStore((store) => store.loading)
 
   const conversation = conversations.find((c) => c.id === id)
-  // useSimulateMessage()
+  useSimulateMessage()
 
   const sendMessage = (text: string) => {
     setLoading(true)
@@ -62,13 +62,20 @@ export default function Chat() {
             </View>
           ) : null
         }
-        renderItem={({ item, index }) => (
-          <Animated.View
-            entering={index === 0 ? SlideInRight.duration(700).delay(500) : undefined}
-            className={`m-2 ${item.sender === Sender.Me ? 'self-end' : 'self-start'}`}>
-            <ChatBubble message={item.text} isMe={item.sender === Sender.Me} />
-          </Animated.View>
-        )}
+        renderItem={({ item, index }) => {
+          const isMe = item.sender === Sender.Me
+          const entryAnimation = isMe
+            ? ZoomInRight.duration(1000).delay(500)
+            : ZoomInLeft.duration(1000).delay(500)
+
+          return (
+            <Animated.View
+              entering={index === 0 ? entryAnimation : undefined}
+              className={`m-2 ${isMe ? 'self-end' : 'self-start'}`}>
+              <ChatBubble message={item.text} isMe={isMe} />
+            </Animated.View>
+          )
+        }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       />

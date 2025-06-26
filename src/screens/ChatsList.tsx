@@ -1,5 +1,4 @@
 import { View, Text, Pressable, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 
 import { useChatStore } from '@/stores/chat.store'
@@ -22,7 +21,8 @@ export default function ChatsList() {
           <View className={`flex-row items-center justify-between`}>
             <View>
               <Text className={`text-lg font-semibold text-[--color-primary]`}>{item.name}</Text>
-              <Text className={`text-sm text-[--color-primary]`}>
+              <Text
+                className={`text-sm text-[${item.isOnline ? '--color-brand' : '--color-primary'}]`}>
                 {item.isOnline ? 'Online' : 'Offline'}
               </Text>
             </View>

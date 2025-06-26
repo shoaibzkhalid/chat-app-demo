@@ -11,7 +11,7 @@ export default function ThemeSwitcher() {
       className="flex-row items-center justify-between rounded-lg bg-gray-100 p-4 
     dark:bg-gray-800">
       <Text className="mx-2 text-[--color-primary]">
-        Toggle Dark Mode: {theme === 'dark' ? 'Dark 🌙' : 'Light 🌞'}
+        Toggle theme: {theme === 'dark' ? 'Dark 🌙' : 'Light 🌞'}
       </Text>
 
       <Switch
