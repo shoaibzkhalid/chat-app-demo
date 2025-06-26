@@ -23,7 +23,7 @@ A simple chat application demonstrating react native skills for Ropstam hiring.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/chat-demo-app-v1.git
+   git clone https://github.com/shoaibzkhalid/chat-demo.git
    ```
 2. Install dependencies:
    ```bash
