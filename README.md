@@ -2,6 +2,8 @@
 
 A simple chat application demonstrating react native skills for Ropstam hiring.
 
+![Demo](demo.gif)
+
 ## Features
 
 - Bottom tab navigation
