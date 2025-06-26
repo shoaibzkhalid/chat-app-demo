@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { Appearance } from 'react-native'
 import { createJSONStorage, persist } from 'zustand/middleware'
+
 import { zustandStorage } from '@/utils/storage'
 
 type Theme = 'light' | 'dark'

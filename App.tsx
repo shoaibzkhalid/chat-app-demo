@@ -12,12 +12,13 @@ import RootNavigator from '@/navigators/RootNavigator'
 import { useNotifications } from '@/hooks/useNotifications'
 
 export default function App() {
+  // push notification set up hook
   useNotifications()
   const { theme } = useThemeStore()
   const colors = useThemeColors()
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: colors.background }}>
+    <SafeAreaProvider style={{ backgroundColor: colors.card }}>
       <GestureHandlerRootView>
         <ThemeProvider>
           <NavigationContainer theme={{ dark: theme === 'dark', colors, fonts }}>

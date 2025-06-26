@@ -7,7 +7,6 @@ import * as Notifications from 'expo-notifications'
 export const useNotifications = () => {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldShowAlert: true, // ← SHOW native popup in foreground
       shouldPlaySound: true,
       shouldSetBadge: false,
       shouldShowList: false,

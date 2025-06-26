@@ -13,21 +13,23 @@ export default function ChatsList() {
   return (
     <FlatList
       data={conversations}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
+      keyExtractor={(conversation) => conversation.id}
+      renderItem={({ item: conversation }) => (
         <Pressable
-          onPress={() => navigation.navigate('Chat', { item })}
+          onPress={() => navigation.navigate('Chat', { conversation })}
           className={`bg-red border-b border-gray-200 p-4`}>
           <View className={`flex-row items-center justify-between`}>
             <View>
-              <Text className={`text-lg font-semibold text-[--color-primary]`}>{item.name}</Text>
+              <Text className={`text-lg font-semibold text-[--color-primary]`}>
+                {conversation.name}
+              </Text>
               <Text
-                className={`text-sm text-[${item.isOnline ? '--color-brand' : '--color-primary'}]`}>
-                {item.isOnline ? 'Online' : 'Offline'}
+                className={`text-sm text-[${conversation.isOnline ? '--color-brand' : '--color-primary'}]`}>
+                {conversation.isOnline ? 'Online' : 'Offline'}
               </Text>
             </View>
 
-            <FavoriteButton item={item} toggleFavorite={toggleFavorite} />
+            <FavoriteButton conversation={conversation} toggleFavorite={toggleFavorite} />
           </View>
         </Pressable>
       )}

@@ -1,8 +1,8 @@
 import { useThemeStore } from '@/stores/theme.store'
 
 const lightColors = {
-  background: '#fff',
   text: '#111827',
+  background: '#fff',
   icon: '#000',
   card: '#f9fafb',
   primary: 'green',
@@ -15,9 +15,9 @@ const darkColors = {
   background: '#111827',
   text: '#f9fafb',
   icon: '#fff',
+  card: '#111827',
   border: '#374151',
   notification: '#f87171',
-  card: '#1f2937',
 }
 
 export const useThemeColors = () => {

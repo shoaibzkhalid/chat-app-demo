@@ -1,9 +1,9 @@
 import { View, Text, Pressable, Alert } from 'react-native'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
-
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { useChatStore } from '@/stores/chat.store'
+
 import { zustandStorage } from '@/utils/storage'
+import { useChatStore } from '@/stores/chat.store'
+import ThemeSwitcher from '@/components/ThemeSwitcher'
 
 export default function Profile() {
   const clearStorage = useChatStore((store) => store.clearStorage)
@@ -15,7 +15,7 @@ export default function Profile() {
       Alert.alert('Chat Reset', 'All conversations have been cleared.')
     } catch (error) {
       console.log('Error clearing storage', error)
-      Alert('Something went wrong clearing chats')
+      Alert.alert('Something went wrong clearing chats')
     }
   }
 
@@ -26,7 +26,7 @@ export default function Profile() {
 
       <Pressable
         className="my-2 flex-row items-center justify-between rounded-lg bg-gray-100 
-    p-4 dark:bg-gray-800"
+          p-4 dark:bg-gray-800"
         onPress={handleClearChat}>
         <Ionicons name="trash-outline" size={24} color="red" />
         <Text className="mx-2 text-[--color-primary]">Clear chats</Text>

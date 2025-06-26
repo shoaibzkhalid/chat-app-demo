@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Animated, { ZoomInLeft, ZoomInRight } from 'react-native-reanimated'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import {
@@ -10,22 +10,27 @@ import {
   View,
 } from 'react-native'
 
-import ChatBubble from '@/components/ChatBubble'
 import ChatInput from '@/components/ChatInput'
+import ChatBubble from '@/components/ChatBubble'
 import { Conversation } from '@/types/conversation'
+import { useThemeColors } from '@/theme/hooks'
 import { useChatStore, Sender } from '@/stores/chat.store'
 import { useSimulateMessage } from '@/hooks/useSimulateMessage'
 
 export default function Chat() {
-  const route = useRoute<RouteProp<{ params: { item: Conversation } }, 'params'>>()
+  const route = useRoute<RouteProp<{ params: { conversation: Conversation } }, 'params'>>()
   const flatListRef = useRef<FlatList>(null)
+  const themeColors = useThemeColors()
+  const isFirstRender = useRef(true)
 
-  const { id } = route.params.item
+  const { id } = route.params.conversation
   const { conversations, addMessage } = useChatStore()
   const setLoading = useChatStore((store) => store.setLoading)
   const loading = useChatStore((store) => store.loading)
 
   const conversation = conversations.find((c) => c.id === id)
+
+  // comment if want to stop simulated messages
   useSimulateMessage()
 
   const sendMessage = (text: string) => {
@@ -43,9 +48,16 @@ export default function Chat() {
     }, 1000)
   }
 
+  useEffect(() => {
+    // using this only to check whether to show
+    // entering animation or not -- quick solution
+    isFirstRender.current = false
+  }, [])
+
   return (
     <KeyboardAvoidingView
       className="flex-1"
+      style={{ backgroundColor: themeColors.card }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
       <FlatList
@@ -53,7 +65,7 @@ export default function Chat() {
         contentContainerStyle={{ paddingBottom: 10 }}
         ref={flatListRef}
         data={conversation?.messages || []}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(conversation) => conversation.id}
         ListHeaderComponent={
           loading ? (
             <View className=" flex-row items-center justify-center py-4">
@@ -62,17 +74,19 @@ export default function Chat() {
             </View>
           ) : null
         }
-        renderItem={({ item, index }) => {
-          const isMe = item.sender === Sender.Me
+        renderItem={({ item: conversation, index }) => {
+          const isMe = conversation.sender === Sender.Me
+          const shouldAnimate = index === 0 && !isFirstRender.current
+
           const entryAnimation = isMe
             ? ZoomInRight.duration(1000).delay(500)
             : ZoomInLeft.duration(1000).delay(500)
 
           return (
             <Animated.View
-              entering={index === 0 ? entryAnimation : undefined}
+              entering={shouldAnimate ? entryAnimation : undefined}
               className={`m-2 ${isMe ? 'self-end' : 'self-start'}`}>
-              <ChatBubble message={item.text} isMe={isMe} />
+              <ChatBubble message={conversation.text} isMe={isMe} />
             </Animated.View>
           )
         }}

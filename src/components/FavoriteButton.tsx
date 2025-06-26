@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Pressable } from 'react-native'
+import { Alert, Pressable } from 'react-native'
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -7,35 +6,37 @@ import { Conversation } from '@/types/conversation'
 
 type FavoriteButtonProps = {
   toggleFavorite: (id: string) => void
-  item: Conversation
+  conversation: Conversation
 }
 
-export default function FavoriteButton({ toggleFavorite, item }: FavoriteButtonProps) {
+export default function FavoriteButton({ toggleFavorite, conversation }: FavoriteButtonProps) {
   const scale = useSharedValue(1)
-  const [added, setAdded] = useState(false)
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }))
 
   const onPress = () => {
-    setAdded(added ? false : true)
-    toggleFavorite(item.id)
+    toggleFavorite(conversation.id)
 
     scale.value = withSpring(1.5, {}, () => {
       scale.value = withSpring(1)
     })
-  }
 
-  const isFavorite = item.isFavorite
+    Alert.alert(
+      conversation.isFavorite
+        ? `Conversation removed from favorites`
+        : `Conversation added to favorites`
+    )
+  }
 
   return (
     <Pressable onPress={onPress}>
       <Animated.View style={animatedStyle}>
         <Ionicons
-          name={isFavorite ? 'heart' : 'heart-outline'}
+          name={conversation.isFavorite ? 'heart' : 'heart-outline'}
           size={28}
-          color={isFavorite ? '#facc15' : '#9ca3af'}
+          color={conversation.isFavorite ? '#facc15' : '#9ca3af'}
         />
       </Animated.View>
     </Pressable>

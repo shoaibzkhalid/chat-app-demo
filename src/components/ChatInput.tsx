@@ -36,12 +36,9 @@ export default function ChatInput({ sendMessage }: ChatInputProps) {
   const handleContentSizeChange = (
     e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
   ) => {
-    console.log('Content size changed:', e.nativeEvent.contentSize.height)
     const newHeight = e.nativeEvent.contentSize.height
     setInputHeight(Math.min(Math.max(MIN_HEIGHT, newHeight), MAX_HEIGHT))
   }
-
-  // return
 
   return (
     <View

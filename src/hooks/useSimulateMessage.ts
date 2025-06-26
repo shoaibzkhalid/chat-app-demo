@@ -8,12 +8,12 @@ import { Conversation } from '@/types/conversation'
 export const useSimulateMessage = () => {
   const { simulateIncoming } = useChatStore()
 
-  const route = useRoute<RouteProp<{ params: { item: Conversation } }, 'params'>>()
-  const { id } = route.params.item
+  const route = useRoute<RouteProp<{ params: { conversation: Conversation } }, 'params'>>()
+  const conversation = route.params.conversation
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      simulateIncoming(id)
+      simulateIncoming(conversation.id)
 
       Notifications.scheduleNotificationAsync({
         content: {

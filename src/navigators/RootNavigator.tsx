@@ -12,7 +12,7 @@ import { Conversation } from '@/types/conversation'
 export type RootStackParamList = {
   Home: undefined
   ChatsList: undefined
-  Chat: { item: Conversation }
+  Chat: { conversation: Conversation }
 }
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
@@ -22,22 +22,20 @@ export default function RootNavigator() {
   const themeColors = useThemeColors()
 
   return (
-    <RootStack.Navigator
-    // screenOptions={{ animation: 'fade_from_bottom' }}
-    >
+    <RootStack.Navigator>
       <RootStack.Screen name="Home" component={TabNavigator} />
       <RootStack.Screen
         name="Chat"
         component={Chat}
         options={({ route }) => {
           return {
-            title: route.params.item.name,
+            title: route.params.conversation.name,
             headerTitle: () => {
-              const isOnline = route.params.item.isOnline
+              const isOnline = route.params.conversation.isOnline
               return (
                 <View className="align-center ">
                   <Text className="text-center text-[--color-primary]">
-                    {route.params.item.name}
+                    {route.params.conversation.name}
                   </Text>
                   <Text
                     className={`text-center text-sm text-[${isOnline ? '--color-brand' : '--color-primary'}]`}>
